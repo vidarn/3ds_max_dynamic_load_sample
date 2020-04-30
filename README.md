@@ -13,7 +13,7 @@ to the structure of a project.
 The two files are `dynamic_load.c` and `dynamic_load.h`. The former should be added among your source files 
 and the latter should be included in files that want to load dynamic functions.
 
-The dynamic functions should be defined in a separate file like so>
+The dynamic functions should be defined in a separate file:
 ```
 DYNAMIC_FUNC_PREFIX
 int test_dynamic(int a, float b) {
@@ -55,17 +55,17 @@ plugin dll and call it directly.
 This is how I usually set up my CMakeFile to allow switching between dynamic loading and regular calls:
 ```
 set (DYNAMIC_LOAD_SOURCES
-	"SampleGUP_dynamic.cpp"
+	"Sample_dynamic.cpp"
 )
 
 set (SRC
 	"DllEntry.cpp"
-	"SampleGUP.cpp"
+	"Sample.cpp"
 	"dynamic_load.c"
 )
 ```
-The files listed under DYNAMIC_LOAD_SOURCES contain functions that will be included in the dynamic dll
-I then add a CMake option to enable or disable dynamic loading>
+The files listed under DYNAMIC_LOAD_SOURCES contain functions that will be included in the dynamic dll.
+I then add a CMake option to enable or disable dynamic loading:
 ```
 set(3DSMAX_DYNAMIC_LOAD false CACHE STRING "Compile to dynamic dll (for development)")
 ```
@@ -85,9 +85,9 @@ endif()
 
 
 # Sample
-The sample folder Contains a sample 3ds max plugin demonstrating the dynamic loading which can be compiled with CMake. 
-It is recommended to set CMAKE_INSTALL_PREFIX to `C:\Users\[USERNAME]\AppData\Roaming\Autodesk\ApplicationPlugins` and runnig cmake install with the Release build type
-(Note that using the Debug build type in CMake is not supported when developing 3ds Max plugins an will crash).
+The `sample` folder contains a sample 3ds max plugin demonstrating the dynamic loading which can be compiled with CMake. 
+It is recommended to set CMAKE_INSTALL_PREFIX to `C:\Users\[USERNAME]\AppData\Roaming\Autodesk\ApplicationPlugins` and runnig `cmake install` with the Release build type
+(Note that using the Debug build type in CMake is not supported when developing 3ds Max plugins and will probably cause max to crash).
 
 The sample plugin is very simple and exposes the function `dynamic_sample_funcs.test` to maxscript.
 You can call it like this:
@@ -96,8 +96,8 @@ dynamic_sample_funcs.test 4
 ```
 and the plugin will print a short message to the maxscript listener window.
 This can be used to test the dynamic reloading 
-- change the body of the `test_func` function in Sample_dynamic.cpp and recompile, while keeping 3ds Max running.
-Call the function from maxscript again and you should see the new message printed to the listener window.
+- Change the body of the `test_func` function in Sample_dynamic.cpp and recompile, while keeping 3ds Max running.
+- Call the function from maxscript again and you should see the new message printed to the listener window.
 
 # PDB file locking
 If you run 3ds Max under the visual studio debugger, it will sometimes lock the .pdb for the dynamic dll and prevent it from being
